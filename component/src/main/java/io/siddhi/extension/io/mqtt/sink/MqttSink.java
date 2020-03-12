@@ -330,5 +330,37 @@ public class MqttSink extends Sink {
                     + brokerURL + " in " + streamDefinition.getId(), e);
         }
     }
+
+    public String getBrokerURL() { return brokerURL; }
+
+    public String getTopicOption() {return topicOption.getValue();}
+
+    public String getClientId() {return clientId;}
+
+    public String getUserName() {return userName;}
+
+    public String getUserPassword() {return  userPassword;}
+
+    public String getQosOption() {return qosOption.getValue();}
+
+    public boolean getCleanSession() {return cleanSession;}
+
+    public int getKeepAlive() {return keepAlive;}
+
+    public int getConnectionTimeout() {return connectionTimeout;}
+
+    public int getMaxInFlight() {
+        return maxInflight;
+    }
+
+    public boolean getAutomaticReconnect() {
+        return automaticReconnect;
+    }
+
+    public int getMaxReconnectDelay() {
+        return maxReconnectDelay;
+    }
+
+    public String getMessageRetain() {return messageRetainOption.getValue();}
 }
 

@@ -290,6 +290,24 @@ public class MqttSource extends Source {
 
     }
 
+    public String getBrokerURL() { return brokerURL; }
+
+    public String getTopicOption() {return topicOption;}
+
+    public String getClientId() {return clientId;}
+
+    public String getUserName() {return userName;}
+
+    public String getUserPassword() {return  userPassword;}
+
+    public String getQosOption() {return qosOption;}
+
+    public boolean getCleanSession() {return cleanSession;}
+
+    public int getKeepAlive() {return keepAlive;}
+
+    public int getConnectionTimeout() {return connectionTimeout;}
+
     public int getMaxInFlight() {
         return maxInflight;
     }
