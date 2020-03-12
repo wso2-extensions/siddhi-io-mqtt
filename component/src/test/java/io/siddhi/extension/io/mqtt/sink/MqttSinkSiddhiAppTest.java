@@ -15,7 +15,7 @@ public class MqttSinkSiddhiAppTest {
         SiddhiManager siddhiManager = new SiddhiManager();
         String siddhiApp = "@App:name('TestExecutionPlan') " +
             "@sink(type='mqtt', client.id='test_id', url='tcp://localhost:1883'," +
-            "topic='mqtt_source_siddhi',clean.session='true', keep.alive='60', max.inflight='9'," +
+            "topic='mqtt_sink_siddhi',clean.session='true', keep.alive='60', max.inflight='9'," +
             "automatic.reconnect='true', max.reconnect.delay='200000',@map(type='json'))" +
             "Define stream FooStream2 (symbol string, price float, volume long);";
 
@@ -26,7 +26,7 @@ public class MqttSinkSiddhiAppTest {
         sinks.forEach( l -> l.forEach(s -> {
             MqttSink mqttSink = (MqttSink) s;
             AssertJUnit.assertEquals("tcp://localhost:1883", mqttSink.getBrokerURL());
-            AssertJUnit.assertEquals("mqtt_source_siddhi", mqttSink.getTopicOption());
+            AssertJUnit.assertEquals("mqtt_sink_siddhi", mqttSink.getTopicOption());
             AssertJUnit.assertEquals("test_id", mqttSink.getClientId());
             AssertJUnit.assertNull(mqttSink.getUserName());
             AssertJUnit.assertEquals("", mqttSink.getUserPassword());
