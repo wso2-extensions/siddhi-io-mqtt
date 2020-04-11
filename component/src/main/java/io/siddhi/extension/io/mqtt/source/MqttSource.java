@@ -118,13 +118,6 @@ import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
                         optional = true,
                         defaultValue = "60"),
                 @Parameter(
-                        name = "max.inflight",
-                        description = "The maximum number of messages the MQTT client can send without receiving " +
-                                "acknowledgments. The default value is 10",
-                        type = {DataType.INT},
-                        optional = true,
-                        defaultValue = "10"),
-                @Parameter(
                         name = "connection.timeout",
                         description = "The maximum number of seconds that the MQTT client should spend attempting " +
                                 "to connect to the MQTT broker. Once this time interval elapses, a timeout takes " +
@@ -132,6 +125,13 @@ import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
                         type = {DataType.INT},
                         optional = true,
                         defaultValue = "30"),
+                @Parameter(
+                        name = "max.inflight",
+                        description = "The maximum number of messages the MQTT client can send without receiving " +
+                            "acknowledgments. The default value is 10",
+                        type = {DataType.INT},
+                        optional = true,
+                        defaultValue = "10"),
                 @Parameter(
                         name = "automatic.reconnect",
                         description = "This is an optional parameter. If set to true, in the event that the connection " +
@@ -159,6 +159,7 @@ import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
                                 syntax = "@source(type='mqtt', url= 'tcp://localhost:1883', " +
                                         "topic='mqtt_topic', clean.session='true'," +
                                         "quality.of.service= '1', keep.alive= '60',connection.timeout='30'" +
+                                        "max.inflight='20' ,automatic.reconnect='true', max.reconnect.delay='64000'," +
                                         "@map(type='xml'))" +
                                         "Define stream BarStream (symbol string, price float, volume long);",
                                 description = "This query receives events from the `mqtt_topic` topic via MQTT," +
@@ -177,8 +178,8 @@ public class MqttSource extends Source {
     private String qosOption;
     private boolean cleanSession;
     private int keepAlive;
-    private int maxInflight;
     private int connectionTimeout;
+    private int maxInflight;
     private boolean automaticReconnect;
     private int maxReconnectDelay;
     private MqttClient client;
@@ -201,14 +202,14 @@ public class MqttSource extends Source {
         this.keepAlive = Integer.parseInt(optionHolder.validateAndGetStaticValue
                 (MqttConstants.CONNECTION_KEEP_ALIVE_INTERVAL,
                         MqttConstants.DEFAULT_CONNECTION_KEEP_ALIVE_INTERVAL));
-        this.maxInflight = Integer.parseInt(optionHolder.validateAndGetStaticValue
-                (MqttConstants.MAX_INFLIGHT,
-                        MqttConstants.DEFAULT_MAX_INFLIGHT));
         this.connectionTimeout = Integer.parseInt(optionHolder.validateAndGetStaticValue
                 (MqttConstants.CONNECTION_TIMEOUT_INTERVAL,
                         MqttConstants.DEFAULT_CONNECTION_TIMEOUT_INTERVAL));
         this.cleanSession = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue
                 (MqttConstants.CLEAN_SESSION, MqttConstants.DEFAULT_CLEAN_SESSION));
+        this.maxInflight = Integer.parseInt(optionHolder.validateAndGetStaticValue
+            (MqttConstants.MAX_INFLIGHT,
+                MqttConstants.DEFAULT_MAX_INFLIGHT));
         this.automaticReconnect = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue
                 (MqttConstants.AUTOMATIC_RECONNECT, MqttConstants.DEFAULT_AUTOMATIC_RECONNECT));
         this.maxReconnectDelay = Integer.parseInt(optionHolder.validateAndGetStaticValue
@@ -235,8 +236,8 @@ public class MqttSource extends Source {
             connectionOptions.setPassword(userPassword.toCharArray());
             connectionOptions.setCleanSession(cleanSession);
             connectionOptions.setKeepAliveInterval(keepAlive);
-            connectionOptions.setMaxInflight(maxInflight);
             connectionOptions.setConnectionTimeout(connectionTimeout);
+            connectionOptions.setMaxInflight(maxInflight);
             connectionOptions.setAutomaticReconnect(automaticReconnect);
             connectionOptions.setMaxReconnectDelay(maxReconnectDelay);
             client.connect(connectionOptions);
@@ -290,33 +291,4 @@ public class MqttSource extends Source {
 
     }
 
-    public String getBrokerURL() { return brokerURL; }
-
-    public String getTopicOption() {return topicOption;}
-
-    public String getClientId() {return clientId;}
-
-    public String getUserName() {return userName;}
-
-    public String getUserPassword() {return  userPassword;}
-
-    public String getQosOption() {return qosOption;}
-
-    public boolean getCleanSession() {return cleanSession;}
-
-    public int getKeepAlive() {return keepAlive;}
-
-    public int getConnectionTimeout() {return connectionTimeout;}
-
-    public int getMaxInFlight() {
-        return maxInflight;
-    }
-
-    public boolean getAutomaticReconnect() {
-        return automaticReconnect;
-    }
-
-    public int getMaxReconnectDelay() {
-        return maxReconnectDelay;
-    }
 }
