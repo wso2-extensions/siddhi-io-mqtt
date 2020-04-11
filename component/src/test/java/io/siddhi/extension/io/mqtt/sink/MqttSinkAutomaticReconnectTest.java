@@ -7,14 +7,15 @@ import io.siddhi.core.SiddhiAppRuntime;
 import io.siddhi.core.SiddhiManager;
 import io.siddhi.core.exception.ConnectionUnavailableException;
 import io.siddhi.core.stream.input.InputHandler;
-import java.rmi.RemoteException;
-import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.rmi.RemoteException;
+import java.util.Properties;
 
 public class MqttSinkAutomaticReconnectTest {
   private volatile int count;

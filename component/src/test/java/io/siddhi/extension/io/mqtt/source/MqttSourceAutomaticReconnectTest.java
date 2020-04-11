@@ -9,15 +9,16 @@ import io.siddhi.core.event.Event;
 import io.siddhi.core.stream.input.InputHandler;
 import io.siddhi.core.stream.output.StreamCallback;
 import io.siddhi.core.util.SiddhiTestHelper;
-import java.rmi.RemoteException;
-import java.util.Properties;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.rmi.RemoteException;
+import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MqttSourceAutomaticReconnectTest {
   static final Logger LOG = Logger.getLogger(MqttSourceTestCase.class);

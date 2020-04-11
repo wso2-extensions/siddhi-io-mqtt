@@ -200,7 +200,33 @@
             <name>wso2</name>
             <url>https://maven.wso2.org/nexus/content/repositories/releases/</url>
         </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>wso2-nexus</id>
+            <name>wso2 nexus</name>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public</url>
+        </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>wso2.releases</id>
+            <name>wso2 plugins releases</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/releases</url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>wso2-nexus</id>
+            <name>wso2 plugins nexus</name>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <scm>
         <url>https://github.com/siddhi-io/siddhi-io-mqtt.git</url>

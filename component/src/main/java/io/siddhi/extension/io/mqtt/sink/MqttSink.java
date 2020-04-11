@@ -143,13 +143,13 @@ import java.io.UnsupportedEncodingException;
                         defaultValue = "10"),
                 @Parameter(
                         name = "automatic.reconnect",
-                        description = "This is an optional parameter. If set to true, in the event that the connection " +
-                                "is lost, the client will attempt to reconnect to the server. It will initially wait " +
-                                "1 second before it attempts to reconnect, for every failed reconnect attempt, the " +
-                                "delay will double until it is at 2 minutes at which point the delay will stay at "  +
-                                "2 minutes. " +
-                                "If set to false, the client will not attempt to automatically reconnect to the server " +
-                                "in the event that the connection is lost. " +
+                        description = "This is an optional parameter. If set to true, in the event that the " +
+                                "connection is lost, the client will attempt to reconnect to the server. It will " +
+                                "initially wait 1 second before it attempts to reconnect, for every failed reconnect " +
+                                "attempt, the delay will double until it is at 2 minutes at which point the delay "  +
+                                "will stay at 2 minutes. " +
+                                "If set to false, the client will not attempt to automatically reconnect to the " +
+                                "server in the event that the connection is lost. " +
                                 "The default value is `false`.",
                         type = {DataType.BOOL},
                         defaultValue = "false"),
