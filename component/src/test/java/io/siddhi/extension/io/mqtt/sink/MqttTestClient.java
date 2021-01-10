@@ -37,7 +37,6 @@ public class MqttTestClient {
     private String clientId;
     private String userName = null;
     private String userPassword = "";
-    private boolean cleanSession = true;
     private boolean eventArrived;
     private int count;
     private int keepAlive = 60;
