@@ -73,6 +73,12 @@ public class MqttTestClient {
 
     public MqttTestClient(String brokerURL, String topic, int qos, ResultContainer resultContainer)
             throws ConnectionUnavailableException {
+        this(brokerURL, topic, qos, resultContainer, false, true);
+    }
+
+    public MqttTestClient(String brokerURL, String topic, int qos, ResultContainer resultContainer,
+        boolean automaticReconnect, boolean cleanSession)
+        throws ConnectionUnavailableException {
         this.resultContainer = resultContainer;
         try {
             persistence = new MemoryPersistence();
@@ -82,35 +88,6 @@ public class MqttTestClient {
             connectionOptions.setUserName(userName);
             connectionOptions.setPassword(userPassword.toCharArray());
             connectionOptions.setCleanSession(cleanSession);
-            connectionOptions.setKeepAliveInterval(keepAlive);
-            connectionOptions.setConnectionTimeout(connectionTimeout);
-            client.connect(connectionOptions);
-        } catch (MqttException e) {
-            throw new ConnectionUnavailableException(
-                    "Error in connecting with the Mqtt server" + e.getMessage(), e);
-        }
-        try {
-            mqttReceiverCallBack = new MqttReceiverCallBack();
-            client.setCallback(mqttReceiverCallBack);
-            client.subscribe(topic, qos);
-        } catch (MqttException e) {
-            log.error("Error occurred when receiving message ", e);
-        }
-    }
-
-    public MqttTestClient(String brokerURL, String topic, int qos, ResultContainer resultContainer,
-        boolean automaticReconnect, boolean cleanSession)
-        throws ConnectionUnavailableException {
-        this.resultContainer = resultContainer;
-        this.cleanSession = cleanSession;
-        try {
-            persistence = new MemoryPersistence();
-            clientId = MqttClient.generateClientId();
-            client = new MqttClient(brokerURL, clientId, persistence);
-            connectionOptions = new MqttConnectOptions();
-            connectionOptions.setUserName(userName);
-            connectionOptions.setPassword(userPassword.toCharArray());
-            connectionOptions.setCleanSession(this.cleanSession);
             connectionOptions.setKeepAliveInterval(keepAlive);
             connectionOptions.setConnectionTimeout(connectionTimeout);
             connectionOptions.setAutomaticReconnect(automaticReconnect);

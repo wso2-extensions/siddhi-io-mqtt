@@ -107,7 +107,8 @@ import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
                                 "The default value is `true`.",
                         type = {DataType.BOOL},
                         optional = true,
-                        defaultValue = "true"),
+                        defaultValue = "true"
+                ),
                 @Parameter(
                         name = "keep.alive",
                         description = "The maximum number of seconds the connection between the MQTT client and " +
@@ -208,8 +209,8 @@ public class MqttSource extends Source {
         this.cleanSession = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue
                 (MqttConstants.CLEAN_SESSION, MqttConstants.DEFAULT_CLEAN_SESSION));
         this.maxInflight = Integer.parseInt(optionHolder.validateAndGetStaticValue
-            (MqttConstants.MAX_INFLIGHT,
-                MqttConstants.DEFAULT_MAX_INFLIGHT));
+                (MqttConstants.MAX_INFLIGHT,
+                        MqttConstants.DEFAULT_MAX_INFLIGHT));
         this.automaticReconnect = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue
                 (MqttConstants.AUTOMATIC_RECONNECT, MqttConstants.DEFAULT_AUTOMATIC_RECONNECT));
         this.maxReconnectDelay = Integer.parseInt(optionHolder.validateAndGetStaticValue
@@ -290,5 +291,4 @@ public class MqttSource extends Source {
         mqttConsumer.resume();
 
     }
-
 }

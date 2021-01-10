@@ -111,7 +111,8 @@ import java.io.UnsupportedEncodingException;
                                 " the connection is re-established with the same information.\n" +
                                 "The default value is `true`.",
                         type = {DataType.BOOL},
-                        optional = true, defaultValue = "true"),
+                        optional = true, defaultValue = "true"
+                ),
                 @Parameter(
                         name = "message.retain",
                         description = "If this parameter is set to true, the last message sent from the topic to " +
@@ -139,8 +140,7 @@ import java.io.UnsupportedEncodingException;
                         description = "The maximum number of messages the MQTT client can send without receiving " +
                             "acknowledgments. The default value is 10",
                         type = {DataType.INT},
-                        optional = true,
-                        defaultValue = "10"),
+                        optional = true, defaultValue = "10"),
                 @Parameter(
                         name = "automatic.reconnect",
                         description = "This is an optional parameter. If set to true, in the event that the " +
@@ -152,14 +152,13 @@ import java.io.UnsupportedEncodingException;
                                 "server in the event that the connection is lost. " +
                                 "The default value is `false`.",
                         type = {DataType.BOOL},
-                        defaultValue = "false"),
+                        optional = true, defaultValue = "false"),
                 @Parameter(
                         name = "max.reconnect.delay",
                         description = "The maximum number of milliseconds the client could wait after the connection " +
                                 "is lost. The default value is 128000",
                         type = {DataType.INT},
-                        optional = true,
-                        defaultValue = "128000")
+                        optional = true, defaultValue = "128000")
         },
         examples =
                 {
@@ -218,10 +217,10 @@ public class MqttSink extends Sink {
         this.messageRetainOption = optionHolder.getOrCreateOption(MqttConstants.MQTT_MESSAGE_RETAIN,
                 MqttConstants.DEFAULT_MESSAGE_RETAIN);
         this.cleanSession = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue
-                (MqttConstants.CLEAN_SESSION, MqttConstants.DEFAULT_CLEAN_SESSION));
+                    (MqttConstants.CLEAN_SESSION, MqttConstants.DEFAULT_CLEAN_SESSION));
         this.maxInflight = Integer.parseInt(optionHolder.validateAndGetStaticValue
-            (MqttConstants.MAX_INFLIGHT,
-                MqttConstants.DEFAULT_MAX_INFLIGHT));
+                (MqttConstants.MAX_INFLIGHT,
+                        MqttConstants.DEFAULT_MAX_INFLIGHT));
         this.automaticReconnect = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue
                 (MqttConstants.AUTOMATIC_RECONNECT, MqttConstants.DEFAULT_AUTOMATIC_RECONNECT));
         this.maxReconnectDelay = Integer.parseInt(optionHolder.validateAndGetStaticValue
@@ -264,6 +263,7 @@ public class MqttSink extends Sink {
             connectionOptions.setAutomaticReconnect(automaticReconnect);
             connectionOptions.setMaxReconnectDelay(maxReconnectDelay);
             client.connect(connectionOptions);
+
         } catch (MqttException e) {
             throw new ConnectionUnavailableException(
                     "Error while connecting with the Mqtt server, Check the broker url = " + brokerURL +
@@ -331,6 +331,5 @@ public class MqttSink extends Sink {
                     + brokerURL + " in " + streamDefinition.getId(), e);
         }
     }
-
 }
 
