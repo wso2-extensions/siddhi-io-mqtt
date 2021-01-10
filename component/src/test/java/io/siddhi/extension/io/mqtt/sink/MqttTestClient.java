@@ -93,7 +93,7 @@ public class MqttTestClient {
             client.connect(connectionOptions);
         } catch (MqttException e) {
             throw new ConnectionUnavailableException(
-                "Error in connecting with the Mqtt server" + e.getMessage(), e);
+                    "Error in connecting with the Mqtt server" + e.getMessage(), e);
         }
         try {
             mqttReceiverCallBack = new MqttReceiverCallBack();
