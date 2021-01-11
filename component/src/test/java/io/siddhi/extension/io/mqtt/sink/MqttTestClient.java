@@ -37,7 +37,6 @@ public class MqttTestClient {
     private String clientId;
     private String userName = null;
     private String userPassword = "";
-    private boolean cleanSession = true;
     private boolean eventArrived;
     private int count;
     private int keepAlive = 60;
@@ -73,6 +72,12 @@ public class MqttTestClient {
 
     public MqttTestClient(String brokerURL, String topic, int qos, ResultContainer resultContainer)
             throws ConnectionUnavailableException {
+        this(brokerURL, topic, qos, resultContainer, false, true);
+    }
+
+    public MqttTestClient(String brokerURL, String topic, int qos, ResultContainer resultContainer,
+        boolean automaticReconnect, boolean cleanSession)
+        throws ConnectionUnavailableException {
         this.resultContainer = resultContainer;
         try {
             persistence = new MemoryPersistence();
@@ -84,6 +89,7 @@ public class MqttTestClient {
             connectionOptions.setCleanSession(cleanSession);
             connectionOptions.setKeepAliveInterval(keepAlive);
             connectionOptions.setConnectionTimeout(connectionTimeout);
+            connectionOptions.setAutomaticReconnect(automaticReconnect);
             client.connect(connectionOptions);
         } catch (MqttException e) {
             throw new ConnectionUnavailableException(
